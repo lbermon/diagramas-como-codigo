@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+
+actor Usuario
+actor Estudiante
+actor "Estudiante de Pregrado" as Pregrado
+actor "Estudiante de Posgrado" as Posgrado
+actor Docente
+actor "Personal de Biblioteca" as Bibliotecario
+
+Usuario <|-- Estudiante
+Estudiante <|-- Pregrado
+Estudiante <|-- Posgrado
+Usuario <|-- Docente
+Usuario <|-- Bibliotecario
+
+rectangle "Sistema de Gestión de Biblioteca Universitaria (SGBU)" {
+
+usecase "Autenticarse" as UC_Auth
+usecase "Buscar material bibliográfico" as UC_Buscar
+usecase "Gestionar préstamo" as UC_General
+usecase "Préstamo en línea" as UC_Online
+usecase "Préstamo presencial" as UC_Presencial
+usecase "Reservar material"
+usecase "Renovar préstamo"
+usecase "Devolver material"
+usecase "Pago de multa"
+usecase "Registrar en historial" as UC_Historial
+}
+
+' Relaciones actor - caso de uso
+Estudiante --> UC_Buscar
+Estudiante --> UC_Online
+Estudiante --> "Reservar material"
+Estudiante --> "Renovar préstamo"
+Estudiante --> "Devolver material"
+
+Docente --> UC_Buscar
+Docente --> UC_Online
+Docente --> "Reservar material"
+Docente --> "Renovar préstamo"
+Docente --> "Devolver material"
+
+Bibliotecario --> UC_Buscar
+Bibliotecario --> UC_Presencial
+Bibliotecario --> "Devolver material"
+Bibliotecario --> "Pago de multa"
+
+' Herencia de casos de uso
+UC_Online --|> UC_General
+UC_Presencial --|> UC_General
+
+' Relaciones <<include>> y <<extend>>
+UC_Buscar --> UC_Auth : <<include>>
+UC_Online --> UC_Auth : <<include>>
+UC_General --> UC_Historial : <<include>>
+"Devolver material" --> UC_Historial : <<include>>
+"Devolver material" --> "Pago de multa" : <<extend>>
+
+@enduml
