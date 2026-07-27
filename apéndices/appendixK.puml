@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+actor Cliente
+
+rectangle "Plataforma de banca en línea" {
+    component "Portal web" as Web
+    component "Aplicación móvil" as Mobile
+    component "API Gateway" as Gateway
+    component "Servicio de\nautenticación" as Auth
+    component "Servicio de\ncuentas" as Accounts
+    component "Servicio de\ntransferencias" as Transfers
+    component "Servicio de\npagos" as Payments
+    component "Servicio de\nauditoría" as Audit
+    database "Base de datos\ncentral" as Database
+}
+
+Cliente --> Web : Utiliza
+Cliente --> Mobile : Utiliza
+
+Web --> Gateway : Envía solicitudes
+Mobile --> Gateway : Envía solicitudes
+
+Gateway --> Auth : Autentica operaciones
+Gateway --> Accounts : Consulta saldos y productos
+Gateway --> Transfers : Realiza transferencias
+Gateway --> Payments : Paga servicios
+
+Auth --> Database : Consulta credenciales
+Accounts --> Database : Consulta información financiera
+Transfers --> Database : Registra transferencias
+Payments --> Database : Registra pagos
+
+Auth --> Audit : Registra accesos
+Accounts --> Audit : Registra consultas
+Transfers --> Audit : Registra operaciones
+Payments --> Audit : Registra operaciones
+
+Audit --> Database : Almacena eventos
+@enduml
