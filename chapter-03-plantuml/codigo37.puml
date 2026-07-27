@@ -1,0 +1,28 @@
+@startuml
+title Sistema de compras en línea — Diagrama de Componentes
+
+' ===== Interfaces =====
+interface "IConsultaCatálogo" as ICatalog
+interface "ITotalCarrito" as ICart
+interface "IProcesamientoPago" as IPayProc
+interface "IEventoPago" as IPayEvt
+
+' ===== Componentes =====
+component "Catálogo" as Catalog
+component "Carrito de Compras" as Cart
+component "Pago" as Pay
+component "Notificación" as Notify
+
+' ===== Interfaces provistas =====
+Catalog - ICatalog
+Cart - ICart
+Pay - IPayProc
+Pay - IPayEvt
+
+' ===== Interfaces requeridas (dependencias) =====
+Cart ..> ICatalog : consulta títulos/precios
+Pay ..> ICart : requiere total e ítems
+Cart ..> IPayProc : invoca cobro
+Notify ..> IPayEvt : recibe confirmación/estado
+
+@enduml
