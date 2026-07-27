@@ -1,0 +1,97 @@
+@startuml
+title Sistema de Biblioteca Digital — Diagrama de Clases
+
+'=====================
+' Jerarquía de usuarios
+'=====================
+abstract class Usuario {
+    id: String
+    nombre: String
+    correo: String
+    + autenticar(): boolean
+    + cerrarSesion(): void
+}
+
+class Estudiante extends Usuario {
+    + inscribirse(p: ProgramaLectura): void
+    + solicitarPrestamo(l: Libro): Prestamo
+    + devolverLibro(p: Prestamo): void
+}
+
+class Docente extends Usuario {
+    + publicarMaterial(l: Libro, cap: Capitulo): void
+}
+
+class Bibliotecario extends Usuario {
+    + registrarPrestamo(e: Estudiante, l: Libro): Prestamo
+    + recibirDevolucion(p: Prestamo): void
+}
+
+'=====================
+' Núcleo de contenidos
+'=====================
+class Libro {
+    codigo: String
+    titulo: String
+    autor: String
+    disponible: boolean
+    + consultarDisponibilidad(): boolean
+    + registrarPrestamo(): void
+    + registrarDevolucion(): void
+}
+
+class Capitulo {
+    numero: int
+    titulo: String
+}
+
+class Pagina {
+    numero: int
+    contenidoResumen: String
+}
+
+' Composición: Libro contiene Capítulos; Capítulo contiene Páginas
+Libro *-- "1..*" Capitulo : compone >
+Capitulo *-- "1..*" Pagina : compone >
+
+'=====================
+' Programas y agregación
+'=====================
+class ProgramaLectura {
+    codigo: String
+    nombre: String
+    + agregarLibro(l: Libro): void
+    + removerLibro(l: Libro): void
+}
+
+' Agregación débil: el Programa agrupa Libros, pero estos sobreviven
+ProgramaLectura o-- "0..*" Libro : agrupa >
+
+' Participación de estudiantes en programas (asociación M:N)
+Estudiante "0..*" -- "0..*" ProgramaLectura : participa en >
+
+'=====================
+' Préstamos y asociaciones
+'=====================
+class Prestamo {
+    fechaInicio: Date
+    fechaDevolucion: Date
+    estado: EstadoPrestamo
+}
+
+' Asociación Prestamo entre Estudiante y Libro
+Estudiante "1" -- "0..*" Prestamo
+Libro "1" -- "0..*" Prestamo
+
+' Opcional: bibliotecario opera sobre préstamos
+Bibliotecario "0..*" -- "0..*" Prestamo : gestiona >
+
+'=====================
+' Notas (opcionales)
+'=====================
+note right of Libro
+registrarPrestamo(): disponible=false
+registrarDevolucion(): disponible=true
+end note
+
+@enduml
