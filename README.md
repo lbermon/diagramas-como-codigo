@@ -1,13 +1,13 @@
-Diagramas como Código en Ingeniería de Software
+# Diagramas como Código en Ingeniería de Software
 
-Official Repository
+## Official Repository
 
 This repository accompanies the book **Diagramas como Código en Ingeniería de Software** (Springer).
 It contains the complete source code of the diagrams presented throughout the book, including examples developed with PlantUML, Structurizr DSL, Mermaid, Graphviz and Mingrammer.
 The repository is organized by chapter to facilitate navigation, reproduction of the examples and their adaptation to new software engineering projects.
 
 ## Repository Structure
-Repository Contents
+```text
 chapter-01-introduction
 chapter-02-taxonomy
 chapter-03-plantuml
@@ -21,7 +21,7 @@ chapter-10-ai
 chapter-11-case-studies
 chapter-12-conclusions
 resources
-
+```
 Springer Nature, 2026.
 ISBN:
 DOI:
