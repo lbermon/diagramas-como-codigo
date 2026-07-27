@@ -1,0 +1,13 @@
+digraph ClusterExample {
+    subgraph cluster_backend {
+        label="Backend";
+        API -> DB;
+    }
+
+    subgraph cluster_frontend {
+        label="Frontend";
+        Web -> App;
+    }
+
+    Web -> API;
+}
