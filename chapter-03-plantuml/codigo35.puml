@@ -1,0 +1,37 @@
+@startuml
+title Préstamo de libro — Diagrama de Actividad
+
+skinparam activity {
+    BackgroundColor White
+}
+
+|Estudiante|
+start
+:Buscar libro y solicitar préstamo;
+:Enviar solicitud al sistema;
+
+|Sistema|
+:Recibir solicitud;
+
+' ÚNICO fragmento que encapsula decisión y paralelismo
+group Proceso de disponibilidad y cumplimiento
+if (¿Libro disponible?) then (Sí)
+    fork
+        :Registrar préstamo en el sistema;
+    fork again
+        |Bibliotecario|
+        :Preparar ejemplar físico;
+        :Entregar libro al estudiante;
+    end fork
+else (No)
+    :Ofrecer crear reserva;
+    :Crear reserva y notificar fecha estimada;
+    stop
+endif
+end group
+
+|Estudiante|
+:Confirmar recepción del libro (si aplica);
+end
+
+@enduml
