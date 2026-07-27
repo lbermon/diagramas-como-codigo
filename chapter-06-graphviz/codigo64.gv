@@ -1,0 +1,9 @@
+digraph Styled {
+    node [shape=box, style=filled, color=lightblue];
+    edge [color=gray, penwidth=2];
+
+    Usuario -> Sistema [label="Petición"];
+    Sistema -> BD [label="Consulta"];
+    BD -> Sistema [label="Respuesta"];
+    Sistema -> Usuario [label="Resultados"];
+}
