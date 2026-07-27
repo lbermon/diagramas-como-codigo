@@ -1,0 +1,102 @@
+@startuml
+title Biblioteca Central — Diagrama de Objetos
+
+' ============
+' Usuarios
+' ============
+object "Ana López:Estudiante" as ana {
+    id = "U001"
+    correo = "ana@unal.edu.co"
+}
+
+object "Carlos Pérez:Docente" as carlos {
+    id = "U002"
+    correo = "cperez@unal.edu.co"
+}
+
+object "Marta Gómez:Bibliotecario" as marta {
+    id = "U003"
+    correo = "mgomez@unal.edu.co"
+}
+
+' ============
+' Libros
+' ============
+object "LIB001:Libro\n«Introducción a la Programación»" as lib1 {
+    codigo = "LIB001"
+    autor = "J. Smith"
+    disponible = false
+}
+
+object "LIB002:Libro\n«Sistemas de Bases de Datos»" as lib2 {
+    codigo = "LIB002"
+    autor = "C. Date"
+    disponible = true
+}
+
+object "LIB003:Libro\n«Optimización de Consultas SQL»" as lib3 {
+    codigo = "LIB003"
+    autor = "A. Tanenbaum"
+    disponible = true
+}
+
+' ============
+' Programa de Lectura
+' ============
+object "PRG01:ProgramaLectura\n«Bases de Datos Avanzadas»" as prg {
+    codigo = "PRG01"
+}
+
+prg o-- lib2 : recomienda >
+prg o-- lib3 : recomienda >
+carlos -- prg : participa >
+
+' ============
+' Préstamo
+' ============
+object "P001:Prestamo" as p1 {
+    fechaInicio = "2025-09-01"
+    fechaDevolucion = "2025-09-15"
+    estado = "Activo"
+}
+
+ana -- p1 : titular >
+lib1 -- p1 : ejemplar >
+marta -- p1 : gestionó >
+
+' ============
+' Contenido del libro LIB001
+' ============
+object "Cap1:Capitulo\n«Fundamentos de Algoritmia»" as cap1 {
+    numero = 1
+}
+
+object "Cap2:Capitulo\n«Estructuras de Control»" as cap2 {
+    numero = 2
+}
+
+lib1 *-- cap1
+lib1 *-- cap2
+
+object "P1:Pagina" as p1a {
+    numero = 1
+}
+
+object "P2:Pagina" as p2a {
+    numero = 2
+}
+
+object "P10:Pagina" as p10 {
+    numero = 10
+}
+
+object "P11:Pagina" as p11 {
+    numero = 11
+}
+
+cap1 *-- p1a
+cap1 *-- p2a
+cap2 *-- p10
+cap2 *-- p11
+
+@enduml
