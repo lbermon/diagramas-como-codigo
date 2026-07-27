@@ -1,0 +1,21 @@
+@startuml
+title Diagrama de despliegue UML - Aplicación Web Básica
+
+node "Servidor Web" {
+    artifact "frontend.html"
+    artifact "estilos.css"
+    artifact "main.js"
+}
+
+node "Servidor de Aplicaciones" {
+    artifact "backend.war"
+}
+
+node "Servidor de Base de Datos" {
+    database "MySQL"
+}
+
+"Servidor Web" --> "Servidor de Aplicaciones" : HTTP
+"Servidor de Aplicaciones" --> "Servidor de Base de Datos" : JDBC
+
+@enduml
