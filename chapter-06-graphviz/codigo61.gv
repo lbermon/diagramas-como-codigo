@@ -1,0 +1,13 @@
+digraph G {
+    rankdir=LR
+    node [shape=box, style=filled, color=lightblue]
+
+    A [label="Inicio"]
+    B [label="Proceso"]
+    C [label="Decisión"]
+    D [label="Fin"]
+
+    A -> B -> C
+    C -> D [label="Sí"]
+    C -> B [label="No"]
+}
