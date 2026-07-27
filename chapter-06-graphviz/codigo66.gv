@@ -1,0 +1,54 @@
+graph ER {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    layout=neato
+
+    node [shape=box];
+    asignatura;
+    universidad;
+    estudiante;
+
+    node [shape=ellipse];
+    {
+        node [label="nombre"]
+        nombre0;
+        nombre1;
+        nombre2;
+    }
+
+    apellidos;
+    código;
+    promedio;
+    semestre;
+    créditos;
+    ciudad;
+    país;
+    docIdentidad;
+
+    node [shape=diamond, style=filled, color=lightgrey];
+    "A-U";
+    "E-A";
+    "E-U";
+
+    código -- asignatura;
+    nombre0 -- asignatura;
+    créditos -- asignatura;
+    semestre -- asignatura;
+    asignatura -- "A-U" [label="n", len=1.00];
+    "A-U" -- universidad [label="1", len=1.00];
+    universidad -- nombre1;
+    universidad -- ciudad;
+    universidad -- país;
+    universidad -- "E-U" [label="1", len=1.00];
+    "E-U" -- estudiante [label="n", len=1.00];
+    estudiante -- apellidos;
+    estudiante -- nombre2;
+    estudiante -- promedio;
+    estudiante -- docIdentidad;
+    estudiante -- "E-A" [label="m", len=1.00];
+    "E-A" -- asignatura [label="n", len=1.00];
+
+    label="\n\nDiagrama Entidad Relación";
+    fontsize=20;
+}
