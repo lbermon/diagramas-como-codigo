@@ -1,0 +1,32 @@
+digraph telefono_llamada {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+
+    // Estados finales
+    node [shape=doublecircle];
+    5;
+    6;
+
+    // Estados normales
+    node [shape=circle];
+
+    // Estados y transiciones
+    0 [label="Reposo"];
+    1 [label="Marcando"];
+    2 [label="Llamando"];
+    3 [label="Sonando"];
+    4 [label="En conversación"];
+    5 [label="Colgar (Fin)"];
+    6 [label="Ocupado (Fin)"];
+
+    // Transiciones
+    0 -> 1 [label="Presionar número"];
+    1 -> 2 [label="Confirmar llamada"];
+    2 -> 3 [label="Conectar red"];
+    2 -> 6 [label="Ocupado"];
+    3 -> 4 [label="Contesta receptor"];
+    3 -> 6 [label="No contesta / línea ocupada"];
+    4 -> 5 [label="Colgar"];
+}
